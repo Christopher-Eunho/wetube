@@ -11,8 +11,8 @@ const CommentSchema = new mongoose.Schema({
     },
     video: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Video" // use the object ID from "Video"
-    }
+        ref:"Video" // use(find) the object ID from "Video"
+    } // This is how to relate vidoes with comments
 })
 
 const model = mongoose.model("Comment", CommentSchema);

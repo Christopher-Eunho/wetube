@@ -17,8 +17,8 @@ const CHANGE_PASSWORD = "/change-password";
 
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
-const VIDEOS_DETAIL = "/:id";
-const EDIT_VIDEOS = "/:id/edit";
+const VIDEO_DETAIL = "/:id";
+const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEOS = "/:id/delete";
 
 // To export all route variables in one object
@@ -43,15 +43,28 @@ const routes = {
         }
     },
     
-    videosDetail : id => {
+    videoDetail : id => {
         if (id) {
             return `/videos/${id}`;
         } else {
-            return VIDEOS_DETAIL;
+            return VIDEO_DETAIL;
         }
     },
-    editVideos : EDIT_VIDEOS,
-    deleteVideos : DELETE_VIDEOS
+    editVideo : (id) => {
+        if(id){
+            return `/videos/${id}/edit`;
+        } else{
+            return EDIT_VIDEO;
+        }
+        
+    },
+    deleteVideo : id => {
+        if (id) {
+            return `/videos/${id}/delete`;
+        } else {
+            return DELETE_VIDEOS
+        }
+    }
 };
 
 export default routes;
