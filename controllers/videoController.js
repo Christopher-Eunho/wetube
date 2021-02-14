@@ -35,7 +35,7 @@ export const videoDetail = async (req, res) => {
     } = req;  // Grab the :id from url and save it in the variable "id"
     try {
         const video = await Video.findById(id); // Find the data in Mongodb using the id
-        res.render("videoDetail", { pageTitle : `${Video.title} Detail`, video}); // send video to the frontend
+        res.render("videoDetail", { pageTitle : `${video.title} Detail`, video}); // send video to the frontend
     } catch (error) {
         console.log(error);
         res.redirect(routes.home);
