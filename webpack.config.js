@@ -13,6 +13,14 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(js)$/,
+        use: [
+          {
+            loader:"babel-loader"
+          }
+        ]
+      },
+      {
         test: /\.(scss)$/,
         use: [
           {
@@ -50,50 +58,9 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: '[name].css'
+      filename: 'style.css'
     }),
   ]
 };
 
 module.exports = config;
-// const config = {
-//   entry: ENTRY_FILE,
-//   mode: MODE,
-//   module: {
-//     rules: [
-//       {
-//         test: /\.(scss)$/,
-//         use:  ExtractCSS.extract([
-//           {
-//             loader: MiniCssExtractPlugin.loader
-//           },
-//           {
-//             loader: "css-loader"
-//           },
-//           {
-//             loader: "postcss-loader",
-//             options: {
-//               plugins() {
-//                 return [autoprefixer({browsers: "cover 99.5%"})];
-//               }
-//             }
-//           },
-//           {
-//             loader: "saa-loader"
-//           }
-//         ])
-//       }
-//     ]
-
-//   },
-//   output: {
-//     path: OUTPUT_DIR,
-//     filename: '[name].[js]'
-//   },
-//   plugins: [new ExtractCSS("styles.css")]
-// };
-
-// module.exports = config;
- 
