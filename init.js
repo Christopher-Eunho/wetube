@@ -5,7 +5,7 @@ dotenv.config();
 import "./models/Video";
 import "./models/Comment";
 
-const PORT = process.env.PORT || 13000; // use 13000 if PORT is not found 
+const PORT = process.env.PORT || 11000; // use 11000 if PORT is not found 
 const handleListening = () =>
     console.log(`Listening on : http://localhost:${PORT}`)
 
