@@ -1,8 +1,9 @@
 .social-login
     button.social-login--github
-        span
-            i.fab.fa-github
-        |  Continue with Github 
+        a(href=routes.github)
+            span
+                i.fab.fa-github
+            |  Continue with Github 
         //- "|" is to make Pug know this is a text not another tag component
     
     button.social-login--facebook

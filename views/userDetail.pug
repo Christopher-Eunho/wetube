@@ -1,4 +1,7 @@
 extends layouts/main
 
 block content
-    h1 the fuck
+    .user-profile
+        .user-profile__header
+            img.avata(src=user.avatarUrl)
+            h4.profile__username=user.name

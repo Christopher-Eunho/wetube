@@ -12,6 +12,7 @@ const USERS = "/users";
 const USERS_DETAIL = "/:id";
 const EDIT_PROFILE = "/user-detail";
 const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 //Videos
 
@@ -21,6 +22,12 @@ const VIDEO_DETAIL = "/:id";
 const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEOS = "/:id/delete";
 
+
+//Github
+
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
 // To export all route variables in one object
 const routes = {
     home : HOME,
@@ -29,6 +36,7 @@ const routes = {
     logout : LOGOUT,
     search : SEARCH,
     users : USERS,
+    me : ME,
 
     editProfile : EDIT_PROFILE,
     changePassword : CHANGE_PASSWORD,
@@ -64,7 +72,9 @@ const routes = {
         } else {
             return DELETE_VIDEOS
         }
-    }
+    },
+    github: GITHUB,
+    githubCallback: GITHUB_CALLBACK
 };
 
 export default routes;
