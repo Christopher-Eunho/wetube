@@ -4,27 +4,20 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import passport from "passport";
+import mongoose from "mongoose";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
-import { localsMiddleware } from "./middlewares";  // how to import a non default
-
-
+import { localsMiddleware } from "./middlewares"; 
+import "./passport"
 const app = express()
- 
-// function handleProfile(req, res) {
-//     res.send("You are on profile page")
-// }
-// In an errow function format
-// const handleProfile = (req, res) => res.send("You are on my profile2");
 
-// const betweenHome = (req, res, next) => {
-//     console.log("Between");
-//     next(); // call the next function
-// }
-
+const CookieStore = MongoStore(session); //
 
 app.use(
     helmet({
@@ -38,8 +31,18 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true }));
 app.use(morgan("dev"));
+app.use(session({
+    secret: process.env.COOKIE_SECRET,
+    resvae: true,
+    saveUninitialized: false,
+    store: new CookieStore({mongooseConnection: mongoose.connection}) // connect cookie store with mongoose 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(localsMiddleware);
+
+
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
