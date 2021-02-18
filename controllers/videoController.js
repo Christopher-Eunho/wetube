@@ -12,7 +12,8 @@ export const home = async (req, res) => {
 };// giving a template variable as a second argument
 
 export const getUpload = (req, res) => res.render('upload', { pageTitle : "Upload"});
-    
+
+
 export const postUpload = async (req, res) => {
     const {
         body: { title, description},
@@ -22,9 +23,11 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
         fileUrl: path,
         title,
-        description
+        description,
+        creator: req.user.id
     }); // Add a video on MongoDB using Video model.
-    console.log(newVideo);
+    req.user.videos.push(newVideo.id) // add the id of the video that user uploaded 
+    req.user.save();
     res.redirect(routes.videoDetail(newVideo.id)) // direct to the videoDetail page of the uploaded video with Video id
 };
 
@@ -34,7 +37,7 @@ export const videoDetail = async (req, res) => {
         params: {id}
     } = req;  // Grab the :id from url and save it in the variable "id"
     try {
-        const video = await Video.findById(id); // Find the data in Mongodb using the id
+        const video = await Video.findById(id).populate('creator'); // Find the data in Mongodb using the id. Populate means to bring the whole object of 'creator' using its id.
         res.render("videoDetail", { pageTitle : `${video.title} Detail`, video}); // send video to the frontend
     } catch (error) {
         console.log(error);
@@ -42,27 +45,36 @@ export const videoDetail = async (req, res) => {
     }    
 };
 
+
+
 export const getEditVideo = async (req, res) => {
     const {
         params: {id}
     } = req;
     try{
         const video = await Video.findById(id);
+
+        if(String(video.creator) !== String(req.user.id)){
+            throw Error();
+        } else{
         res.render("editVideo", { pageTitle : `Edit ${video.title} Video`, video });
+        }
     } catch(error){
+        console.log(error);
         res.redirect(routes.home)
     }
-    
 };
+
 export const postEditVideo = async (req, res) => {
     const {
         params: { id },
-        body: { title, description}
+        body: { title, description }
     } = req;
     try {
         await Video.findOneAndUpdate({ _id: id }, {title, description});
         res.redirect(routes.videoDetail(id));
     } catch(error) {
+        console.log(error);
         res.redirect(routes.home);
     }
 };
@@ -73,8 +85,15 @@ export const deleteVideo = async (req, res) => {
         params: {id}
     } = req;
     try{
-        await Video.findByIdAndRemove({ _id: id});
-    } catch(error) {console.log(error)}
+        const video = await Video.findById(id);
+        if(String(video.creator) !== String(req.user.id)){
+            throw Error();
+        } else{
+            await Video.findByIdAndRemove({ _id: id});
+        } 
+    } catch(error) {
+        console.log(error)
+    };
     res.redirect(routes.home);
 }
 

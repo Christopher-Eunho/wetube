@@ -7,7 +7,7 @@ import {
     home,
     postUpload,
     videoDetail } from "../controllers/videoController";
-import { onlyPrivate, uploadVideo } from "../middlewares";
+import { isWorking, onlyPrivate, uploadVideo } from "../middlewares";
 import routes from "../routes";
 
 const videoRouter = express.Router();

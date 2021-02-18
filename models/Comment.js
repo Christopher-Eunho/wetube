@@ -12,7 +12,11 @@ const CommentSchema = new mongoose.Schema({
     video: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"Video" // use(find) the object ID from "Video"
-    } // This is how to relate vidoes with comments
+    }, // This is how to relate vidoes with comments
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
 })
 
 const model = mongoose.model("Comment", CommentSchema);
