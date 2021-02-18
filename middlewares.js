@@ -29,4 +29,7 @@ export const onlyPrivate = (req, res, next) => {
 }
 
 const multerVideo = multer({ dest: "uploads/videos/"}); // this means save the url of the video to this directory
+const multerAvatar = multer({ dest: "uploads/avatars/"});
+
 export const uploadVideo = multerVideo.single("videoFile"); // single means take only one videoFile
+export const uploadAvatar = multerAvatar.single("avatar")

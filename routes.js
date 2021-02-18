@@ -8,10 +8,10 @@ const SEARCH = "/search";
 
 // Users
 
+const CHANGE_PASSWORD = "/change-password";
 const USERS = "/users";
 const USERS_DETAIL = "/:id";
-const EDIT_PROFILE = "/user-detail";
-const CHANGE_PASSWORD = "/change-password";
+const EDIT_PROFILE = "/edit-profile";
 const ME = "/me";
 
 //Videos
@@ -28,6 +28,12 @@ const DELETE_VIDEOS = "/:id/delete";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+
+// Facebook
+
+const FB = "/auth/facebook";
+const FB_CALLBACK = "/auth/facebook/callback";
+
 // To export all route variables in one object
 const routes = {
     home : HOME,
@@ -37,7 +43,6 @@ const routes = {
     search : SEARCH,
     users : USERS,
     me : ME,
-
     editProfile : EDIT_PROFILE,
     changePassword : CHANGE_PASSWORD,
     videos : VIDEOS,
@@ -74,7 +79,9 @@ const routes = {
         }
     },
     github: GITHUB,
-    githubCallback: GITHUB_CALLBACK
+    githubCallback: GITHUB_CALLBACK,
+    facebook: FB,
+    facebookCallback: FB_CALLBACK
 };
 
 export default routes;
